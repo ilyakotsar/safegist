@@ -106,7 +106,9 @@ encryptBtn.addEventListener('click', function() {
         let key = getEncryptionKey(password, salt, iterations);
         let [iv, ciphertext] = encryptText(inputText, key);
         let encrypted = [iterations, salt, iv, ciphertext].join('_');
-        document.getElementById('output-text').value = encrypted;
+        document.getElementById('output-text').classList.replace('whitespace-pre', 'break-all');
+        document.getElementById('output-text').innerText = encrypted;
+        document.getElementById('output').classList.remove('hidden');
         encryptBtn.innerText = encryptBtn.innerText;
     }, 1);
 });
@@ -125,16 +127,23 @@ decryptBtn.addEventListener('click', function() {
     }
     addLoader(decryptBtn);
     setTimeout(() => {
-        let key = getEncryptionKey(password, salt, iterations);
-        let plaintext = decryptText(iv, ciphertext, key);
-        document.getElementById('output-text').value = plaintext;
-        document.getElementById('iterations').value = iterations;
-        decryptBtn.innerText = decryptBtn.innerText;
+        try {
+            let key = getEncryptionKey(password, salt, iterations);
+            let plaintext = decryptText(iv, ciphertext, key);
+            document.getElementById('output-text').classList.replace('break-all', 'whitespace-pre');
+            document.getElementById('output-text').innerText = plaintext;
+            document.getElementById('output').classList.remove('hidden');
+            document.getElementById('iterations').value = iterations;
+            decryptBtn.innerText = decryptBtn.innerText;
+        } catch (error) {
+            console.error(error);
+            decryptBtn.innerText = decryptBtn.innerText;
+        }
     }, 1);
 });
 
 let passwordToggle = document.getElementById('password-toggle');
-passwordToggle.addEventListener('click', function() {
+passwordToggle.addEventListener('input', function() {
     let password = document.getElementById('password');
     if (password.type === 'password') {
         password.type = 'text';
@@ -145,8 +154,20 @@ passwordToggle.addEventListener('click', function() {
     }
 });
 
+let monospacedToggle = document.getElementById('monospaced-toggle');
+monospacedToggle.addEventListener('input', function() {
+    let outputText = document.getElementById('output-text');
+    if (outputText.classList.contains('font-mono')) {
+        outputText.classList.remove('font-mono');
+        monospacedToggle.checked = false;
+    } else {
+        outputText.classList.add('font-mono');
+        monospacedToggle.checked = true;
+    }
+});
+
 document.getElementById('copy').addEventListener('click', function() {
-    let outputText = document.getElementById('output-text').value;
+    let outputText = document.getElementById('output-text').innerText;
     if (!outputText) {
         return;
     }

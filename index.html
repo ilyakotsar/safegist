@@ -4,17 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SafeGist</title>
-  <link rel="stylesheet" href="css/output-9dcc1fc9.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:opsz,wght@14..32,100..900&display=swap"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  >
+  <link rel="stylesheet" href="css/output-529c45df.min.css">
   <script
     src="https://cdn.jsdelivr.net/npm/crypto-js@4.2.0/crypto-js.js"
     integrity="sha384-57VRFGvLpSky5EqUImBJSOkJI+6xYMONZqn8Zh70E+1DyMPpN1vQkaJaN4YqRmln"
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   ></script>
-  <script defer src="js/main-33f3628c.js"></script>
+  <script defer src="js/main-794778fd.js"></script>
 </head>
 <body>
-  <div class="max-w-[640px] mx-auto px-3 pt-1 pb-10">
+  <div class="max-w-[680px] mx-auto px-3 pt-1 pb-10">
     <h1 class="text-center text-lg font-bold mb-6">SafeGist</h1>
     <input type="text" id="gist-link" placeholder="Gist raw link" class="input w-full mb-4">
     <button id="load-gist" class="btn btn-neutral mb-4">Load gist</button>
@@ -34,19 +42,20 @@
         value="200000"
         step="10000"
       >
-      <span class="text-base-content/50">iterations</span>
+      <span class="text-base-content/55">iterations</span>
     </label>
-    <div class="text-sm text-base-content/50 mb-4">Must be between 50,000 and 1,000,000</div>
+    <div class="text-sm text-base-content/55 mb-4">Must be between 50,000 and 1,000,000</div>
     <div class="flex flex-wrap gap-3 mb-4">
       <button id="encrypt" class="btn btn-primary">Encrypt</button>
       <button id="decrypt" class="btn btn-primary">Decrypt</button>
     </div>
-    <textarea id="output-text" class="textarea w-full mb-4" placeholder="Output text"></textarea>
-    <button id="copy" class="btn">Copy to clipboard</button>
-    <div class="text-end text-sm mt-8">
-      <a href="https://github.com/ilyakotsar/safegist" class="link link-primary link-hover" target="_blank">
-        GitHub
-      </a>
+    <div id="output" class="hidden border-t border-base-content/15">
+      <label class="label text-sm mt-2 mb-4">
+        <input type="checkbox" id="monospaced-toggle" class="toggle toggle-sm" checked>
+        Monospaced
+      </label>
+      <div id="output-text" class="whitespace-pre font-mono text-sm overflow-x-auto mb-4"></div>
+      <button id="copy" class="btn">Copy to clipboard</button>
     </div>
   </div>
 </body>

@@ -2,7 +2,8 @@
 @plugin "daisyui";
 
 @theme {
-    --font-mono: monospace;
+    --font-sans: "Inter", sans-serif;
+    --font-mono: "Fira Code", monospace;
 }
 
 .loader {
